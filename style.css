@@ -1,0 +1,152 @@
+/* Estilos Gerais da Página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f1;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Container Principal */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 900px; /* Aumentado levemente para acomodar melhor os dados */
+    width: 100%;
+}
+
+h1 { 
+    color: #2e7d32; 
+    text-align: center; 
+    margin-bottom: 5px;
+}
+
+.subtitulo { 
+    text-align: center; 
+    color: #666; 
+    font-style: italic; 
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Layout em duas colunas (Painel esquerdo e direito) */
+.painel { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px; 
+}
+
+/* Coluna de Controles */
+.controles h2 {
+    color: #333;
+    font-size: 1.4em;
+    margin-top: 0;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.controles label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+.controles input[type="range"] { 
+    width: 100%; 
+    margin-bottom: 10px; 
+    accent-color: #2e7d32; 
+}
+
+/* Coluna de Status e Resultados */
+.status-estufa { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; /* Cria um espaçamento uniforme entre os blocos da direita */
+}
+
+.status-estufa h2 {
+    color: #333;
+    font-size: 1.4em;
+    margin-top: 0;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+/* Caixa de Alerta de Status */
+#statusBox { 
+    padding: 20px; 
+    border-radius: 10px; 
+    text-align: center; 
+    font-weight: bold; 
+    font-size: 1.1em; 
+}
+
+.status-bom { background-color: #e8f5e9; color: #2e7d32; border: 2px solid #2e7d32; }
+.status-alerta { background-color: #fff3e0; color: #ef6c00; border: 2px solid #ef6c00; }
+.status-critico { background-color: #ffebee; color: #c62828; border: 2px solid #c62828; }
+
+/* Bloco Inferior de Métricas de Produção */
+.dados-producao {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.dados-producao h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #444;
+    font-size: 1.1em;
+}
+
+.campo-semente {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.campo-semente label {
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.campo-semente input {
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 90px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Grid Interno dos Cards de Dados */
+.grid-dados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.card-dado {
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+/* Ajustado para h4 de acordo com o novo HTML */
+.card-dado h4 { 
+    font-size: 0.9em;

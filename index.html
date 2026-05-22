@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Agrinho 2026 - Estufa de Morango</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🍓 Simulador de Estufa Inteligente</h1>
+        <p class="subtitulo">Agrinho 2026 | Agroforte, Futuro Sustentável</p>
+        
+        <div class="painel">
+            <div class="controles">
+                <h2>Painel de Controle</h2>
+                
+                <label>Temperatura: <span id="valTemp">22</span>°C</label>
+                <input type="range" id="temp" min="5" max="40" value="22">
+
+                <label>Umidade do Ar: <span id="valUmidAr">70</span>%</label>
+                <input type="range" id="umidAr" min="20" max="100" value="70">
+
+                <label>Umidade do Solo: <span id="valUmidSolo">75</span>%</label>
+                <input type="range" id="umidSolo" min="10" max="100" value="75">
+            </div>
+
+            <div class="status-estufa">
+                <h2>Status do Cultivo</h2>
+                <div id="statusBox" class="status-bom">
+                    <p id="statusTexto">Condições Ideais! O morango está crescendo forte e sustentável. 🌱</p>
+                </div>
+
+                <div class="dados-producao">
+                    <h3>Métricas de Produção Sustentável</h3>
+                    
+                    <div class="campo-semente">
+                        <label for="qtdSementes">Sementes plantadas:</label>
+                        <input type="number" id="qtdSementes" value="100" min="10" max="5000">
+                    </div>
+
+                    <div class="grid-dados">
+                        <div class="card-dado">
+                            <h4>🍓 Colheita Estimada</h4>
+                            <p id="totalMorangos">0</p>
+                            <span class="detalhe">morangos bons</span>
+                        </div>
+                        <div class="card-dado perda">
+                            <h4>📉 Perdas da Safra</h4>
+                            <p id="perdasMorangos">0</p>
+                            <span class="detalhe" id="porcentagemPerda">0% de perda</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
