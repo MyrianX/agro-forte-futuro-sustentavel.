@@ -75,6 +75,22 @@ function atualizarSimulador() {
 
     // Quantidade colhida perfeitamente (proporcional ao sucesso da estufa)
     const totalMorangosColhidos = Math.round(totalPotencialFrutos * taxaSucessoGlobal);
-    
+
     // As perdas são tudo aquilo que deixou de ser colhido perfeitamente
-    const totalMorangosPerdidos
+    const totalMorangosPerdidos = totalPotencialFrutos - totalMorangosColhidos;
+    const porcentagemPerda = totalPotencialFrutos > 0
+        ? Math.round((totalMorangosPerdidos / totalPotencialFrutos) * 100)
+        : 0;
+
+    totalMorangosTxt.innerText = totalMorangosColhidos;
+    perdasMorangosTxt.innerText = totalMorangosPerdidos;
+    porcentagemPerdaTxt.innerText = `${porcentagemPerda}% de perda`;
+}
+
+// Ativa atualização automática quando qualquer controle muda
+[tempInput, umidArInput, umidSoloInput, qtdSementesInput].forEach(element => {
+    element.addEventListener('input', atualizarSimulador);
+});
+
+// Inicializa o painel ao carregar
+atualizarSimulador();
