@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador Agrinho 2026 - Estufa de Morango</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Macondo+Swash+Caps&family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="topo-acessibilidade" aria-label="Controles de acessibilidade">
+        <button id="darkModeToggle" type="button" aria-pressed="false">Ativar modo escuro</button>
+        <div class="font-size-controls" role="group" aria-label="Controle de tamanho de fonte">
+            <button id="fontDecreaseBtn" type="button" aria-label="Diminuir tamanho da fonte">A-</button>
+            <button id="fontIncreaseBtn" type="button" aria-label="Aumentar tamanho da fonte">A+</button>
+        </div>
+    </div>
+
     <div class="container">
         <h1>🍓 Simulador de Estufa Inteligente</h1>
         <p class="subtitulo">Agrinho 2026 | Agroforte, Futuro Sustentável</p>
@@ -55,6 +66,15 @@
                 </div>
         </div>
     </div>
+
+    <section class="plantacao-status" aria-label="Status da plantação de morangos">
+        <h2>Status da Plantação</h2>
+        <p id="plantacaoStatusResumo">Condições Ideais! O morango está crescendo forte e sustentável. 🌱</p>
+    </section>
+
+    <footer class="rodape">
+        <p>Desenvolvido por Ariadne Batistela Oliveira</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

@@ -1,15 +1,25 @@
 /* Estilos Gerais da Página */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Macondo Swash Caps', cursive;
     background-color: #f0f4f1;
     color: #333;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     padding: 20px;
     box-sizing: border-box;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+h1 { 
+    color: #2e7d32; 
+    text-align: center; 
+    margin-bottom: 5px;
+    font-family: 'Pacifico', cursive;
+    transition: color 0.35s ease, transform 0.35s ease;
 }
 
 /* Container Principal */
@@ -22,18 +32,212 @@ body {
     width: 100%;
 }
 
-h1 { 
-    color: #2e7d32; 
-    text-align: center; 
-    margin-bottom: 5px;
-}
-
 .subtitulo { 
     text-align: center; 
     color: #666; 
     font-style: italic; 
     margin-top: 0;
     margin-bottom: 25px;
+}
+
+.topo-acessibilidade {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 999px;
+    padding: 8px 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (max-width: 680px) {
+    .topo-acessibilidade {
+        position: static;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 0 0 20px;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+}
+
+#darkModeToggle,
+#fontDecreaseBtn,
+#fontIncreaseBtn {
+    background-color: #2e7d32;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#darkModeToggle:hover,
+#darkModeToggle:focus,
+#fontDecreaseBtn:hover,
+#fontDecreaseBtn:focus,
+#fontIncreaseBtn:hover,
+#fontIncreaseBtn:focus {
+    background-color: #27632a;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px rgba(0,0,0,0.12);
+}
+
+#darkModeToggle:focus-visible,
+#fontDecreaseBtn:focus-visible,
+#fontIncreaseBtn:focus-visible {
+    outline: 3px solid #ffeb3b;
+    outline-offset: 4px;
+}
+
+.font-size-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.font-size-controls button {
+    min-width: 44px;
+    padding: 10px 14px;
+    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+input[type="range"],
+.campo-semente input {
+    transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.status-estufa, .dados-producao, .card-dado {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.status-estufa:hover, .dados-producao:hover, .card-dado:hover {
+    transform: translateY(-2px);
+}
+
+body.dark-mode #darkModeToggle,
+body.dark-mode #fontDecreaseBtn,
+body.dark-mode #fontIncreaseBtn {
+    background-color: #397a3b;
+}
+
+body.dark-mode {
+    background-color: #09170d;
+    color: #eef7e9;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(255, 82, 127, 0.14) 0, transparent 16px),
+        radial-gradient(circle at 70% 15%, rgba(255, 102, 150, 0.10) 0, transparent 18px),
+        radial-gradient(circle at 30% 70%, rgba(79, 146, 89, 0.12) 0, transparent 24px),
+        radial-gradient(circle at 85% 80%, rgba(141, 200, 134, 0.08) 0, transparent 20px);
+    background-size: cover;
+}
+
+body.dark-mode::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle at 12% 15%, rgba(255, 82, 127, 0.08) 0 10px, transparent 11px),
+        radial-gradient(circle at 50% 10%, rgba(255, 82, 127, 0.08) 0 10px, transparent 11px),
+        radial-gradient(circle at 85% 20%, rgba(255, 82, 127, 0.08) 0 10px, transparent 11px),
+        radial-gradient(circle at 20% 65%, rgba(255, 82, 127, 0.08) 0 10px, transparent 11px),
+        radial-gradient(circle at 75% 75%, rgba(255, 82, 127, 0.08) 0 10px, transparent 11px);
+}
+
+body.dark-mode .container {
+    background: linear-gradient(180deg, #122612 0%, #162f18 100%);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+body.dark-mode h1 {
+    color: #b2efb0;
+}
+
+.container {
+    transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.container:hover {
+    transform: translateY(-2px);
+}
+
+body.dark-mode .subtitulo {
+    color: #d3e9ce;
+}
+
+body.dark-mode .controles h2,
+body.dark-mode .status-estufa h2,
+body.dark-mode .dados-producao h3,
+body.dark-mode .card-dado h4,
+body.dark-mode .campo-semente label {
+    color: #f1f1f1;
+}
+
+.status-bom,
+.status-alerta,
+.status-critico,
+#statusTexto,
+.total-update,
+.perdas-update,
+.porcentagem-update,
+.val-update {
+    transition: background-color 0.35s ease, color 0.35s ease, transform 0.35s ease;
+}
+
+.atualizacao-dados {
+    animation: dado-update 0.5s ease-in-out;
+}
+
+@keyframes dado-update {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+body.dark-mode .atualizacao-dados {
+    animation: dado-update-dark 0.5s ease-in-out;
+}
+
+@keyframes dado-update-dark {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+body.dark-mode .dados-producao {
+    background: #232323;
+    border-color: #333333;
+}
+
+body.dark-mode .card-dado {
+    background: #2b2b2b;
+    color: #e0f2f1;
+    border-color: #3a3a3a;
+}
+
+body.dark-mode .status-bom { background-color: #243a24; color: #a5d6a7; border-color: #66bb6a; }
+body.dark-mode .status-alerta { background-color: #4e3b16; color: #ffd54f; border-color: #ffa726; }
+body.dark-mode .status-critico { background-color: #4b1f1f; color: #ef9a9a; border-color: #e57373; }
+
+body.dark-mode input,
+body.dark-mode .campo-semente input {
+    background: #272727;
+    border: 1px solid #444444;
+    color: #f1f1f1;
 }
 
 /* Layout em duas colunas (Painel esquerdo e direito) */
@@ -150,3 +354,48 @@ h1 {
 /* Ajustado para h4 de acordo com o novo HTML */
 .card-dado h4 { 
     font-size: 0.9em;
+}
+
+footer.rodape {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+footer.rodape p {
+    margin: 0;
+}
+
+.plantacao-status {
+    max-width: 900px;
+    width: 100%;
+    margin-top: 20px;
+    background: rgba(46, 125, 50, 0.08);
+    border: 1px solid rgba(46, 125, 50, 0.25);
+    border-radius: 14px;
+    padding: 18px 24px;
+    box-sizing: border-box;
+}
+
+.plantacao-status h2 {
+    margin: 0 0 10px;
+    color: #2e7d32;
+    font-size: 1.2rem;
+}
+
+.plantacao-status p {
+    margin: 0;
+    color: #344d2f;
+    line-height: 1.5;
+}
+
+body.dark-mode .plantacao-status {
+    background: rgba(26, 60, 28, 0.18);
+    border-color: rgba(130, 190, 122, 0.3);
+}
+
+body.dark-mode .plantacao-status h2,
+body.dark-mode .plantacao-status p {
+    color: #d3e9ce;
+}

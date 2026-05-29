@@ -10,6 +10,17 @@ const valUmidSolo = document.getElementById('valUmidSolo');
 const statusBox = document.getElementById('statusBox');
 const statusTexto = document.getElementById('statusTexto');
 
+const previousStats = {
+    temp: '',
+    umidAr: '',
+    umidSolo: '',
+    totalMorangos: '',
+    perdasMorangos: '',
+    porcentagemPerda: '',
+    statusTexto: '',
+    statusClass: ''
+};
+
 // 2. SELEÇÃO DOS ELEMENTOS DE PRODUÇÃO (Sementes e Métricas)
 const qtdSementesInput = document.getElementById('qtdSementes');
 const totalMorangosTxt = document.getElementById('totalMorangos');
@@ -69,6 +80,13 @@ function atualizarSimulador() {
         statusTexto.innerText = "Alerta Crítico! Desequilíbrio severo detectado. Alto índice de perdas por estresse hídrico ou térmico. 🚨";
     }
 
+    const statusTextoNovo = statusTexto.innerText;
+    const statusClasseNova = statusBox.className;
+
+    if (plantacaoStatusResumo) {
+        plantacaoStatusResumo.innerText = statusTextoNovo;
+    }
+
     // --- MATEMÁTICA DA SAFRA (Baseado nas sementes reais) ---
     const morangosPorPlanta = 5; // Potencial máximo de frutos por semente/muda
     const totalPotencialFrutos = sementes * morangosPorPlanta;
@@ -82,15 +100,129 @@ function atualizarSimulador() {
         ? Math.round((totalMorangosPerdidos / totalPotencialFrutos) * 100)
         : 0;
 
-    totalMorangosTxt.innerText = totalMorangosColhidos;
-    perdasMorangosTxt.innerText = totalMorangosPerdidos;
-    porcentagemPerdaTxt.innerText = `${porcentagemPerda}% de perda`;
+    const novoTotalMorangos = totalMorangosColhidos.toString();
+    const novasPerdas = totalMorangosPerdidos.toString();
+    const novaPorcentagem = `${porcentagemPerda}% de perda`;
+
+    const changedElements = [];
+    if (valTemp.innerText !== String(t)) changedElements.push(valTemp);
+    if (valUmidAr.innerText !== String(ua)) changedElements.push(valUmidAr);
+    if (valUmidSolo.innerText !== String(us)) changedElements.push(valUmidSolo);
+    if (totalMorangosTxt.innerText !== novoTotalMorangos) changedElements.push(totalMorangosTxt);
+    if (perdasMorangosTxt.innerText !== novasPerdas) changedElements.push(perdasMorangosTxt);
+    if (porcentagemPerdaTxt.innerText !== novaPorcentagem) changedElements.push(porcentagemPerdaTxt);
+    if (previousStats.statusTexto !== statusTextoNovo || previousStats.statusClass !== statusClasseNova) {
+        changedElements.push(statusBox, statusTexto);
+    }
+
+    valTemp.innerText = t;
+    valUmidAr.innerText = ua;
+    valUmidSolo.innerText = us;
+    totalMorangosTxt.innerText = novoTotalMorangos;
+    perdasMorangosTxt.innerText = novasPerdas;
+    porcentagemPerdaTxt.innerText = novaPorcentagem;
+
+    previousStats.temp = String(t);
+    previousStats.umidAr = String(ua);
+    previousStats.umidSolo = String(us);
+    previousStats.totalMorangos = novoTotalMorangos;
+    previousStats.perdasMorangos = novasPerdas;
+    previousStats.porcentagemPerda = novaPorcentagem;
+    previousStats.statusTexto = statusTextoNovo;
+    previousStats.statusClass = statusClasseNova;
+
+    if (changedElements.length > 0) {
+        activarAnimacao(changedElements);
+    }
 }
+
+function activarAnimacao(elements) {
+    elements.forEach(element => {
+        if (!element) return;
+        element.classList.remove('atualizacao-dados');
+        void element.offsetWidth;
+        element.classList.add('atualizacao-dados');
+    });
+}
+
+const plantacaoStatusResumo = document.getElementById('plantacaoStatusResumo');
 
 // Ativa atualização automática quando qualquer controle muda
 [tempInput, umidArInput, umidSoloInput, qtdSementesInput].forEach(element => {
     element.addEventListener('input', atualizarSimulador);
 });
+
+const darkModeToggle = document.getElementById('darkModeToggle');
+const fontDecreaseBtn = document.getElementById('fontDecreaseBtn');
+const fontIncreaseBtn = document.getElementById('fontIncreaseBtn');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+const fontSizeLevels = [0.95, 1, 1.1, 1.2];
+const defaultFontSizeIndex = 1;
+let currentFontSizeIndex = defaultFontSizeIndex;
+
+function aplicarTemaEscuro(ativo) {
+    document.body.classList.toggle('dark-mode', ativo);
+    darkModeToggle.setAttribute('aria-pressed', ativo.toString());
+    darkModeToggle.innerText = ativo ? 'Desativar modo escuro' : 'Ativar modo escuro';
+}
+
+function atualizarBotoesFonte() {
+    if (!fontDecreaseBtn || !fontIncreaseBtn) return;
+    fontDecreaseBtn.disabled = currentFontSizeIndex === 0;
+    fontIncreaseBtn.disabled = currentFontSizeIndex === fontSizeLevels.length - 1;
+    fontDecreaseBtn.setAttribute('aria-disabled', fontDecreaseBtn.disabled.toString());
+    fontIncreaseBtn.setAttribute('aria-disabled', fontIncreaseBtn.disabled.toString());
+}
+
+function aplicarTamanhoFonte(index) {
+    currentFontSizeIndex = Math.min(Math.max(index, 0), fontSizeLevels.length - 1);
+    document.body.style.fontSize = `${fontSizeLevels[currentFontSizeIndex]}rem`;
+    localStorage.setItem('tamanhoFonte', currentFontSizeIndex.toString());
+    atualizarBotoesFonte();
+}
+
+function carregarPreferenciaTema() {
+    const temaArmazenado = localStorage.getItem('modoEscuro');
+    if (temaArmazenado !== null) {
+        aplicarTemaEscuro(temaArmazenado === 'true');
+    } else {
+        aplicarTemaEscuro(prefersDarkScheme.matches);
+    }
+}
+
+function carregarPreferenciaFonte() {
+    const tamanhoFonteArmazenado = parseInt(localStorage.getItem('tamanhoFonte'), 10);
+    if (!Number.isNaN(tamanhoFonteArmazenado) && tamanhoFonteArmazenado >= 0 && tamanhoFonteArmazenado < fontSizeLevels.length) {
+        aplicarTamanhoFonte(tamanhoFonteArmazenado);
+    } else {
+        aplicarTamanhoFonte(defaultFontSizeIndex);
+    }
+}
+
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', () => {
+        const estaEscuro = document.body.classList.toggle('dark-mode');
+        darkModeToggle.setAttribute('aria-pressed', estaEscuro.toString());
+        darkModeToggle.innerText = estaEscuro ? 'Desativar modo escuro' : 'Ativar modo escuro';
+        localStorage.setItem('modoEscuro', estaEscuro.toString());
+    });
+}
+
+if (fontDecreaseBtn) {
+    fontDecreaseBtn.addEventListener('click', () => {
+        aplicarTamanhoFonte(currentFontSizeIndex - 1);
+    });
+}
+
+if (fontIncreaseBtn) {
+    fontIncreaseBtn.addEventListener('click', () => {
+        aplicarTamanhoFonte(currentFontSizeIndex + 1);
+    });
+}
+
+// Inicializa o painel ao carregar e aplica preferências salvas
+carregarPreferenciaTema();
+carregarPreferenciaFonte();
 
 // Inicializa o painel ao carregar
 atualizarSimulador();
